@@ -4,6 +4,7 @@ import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 export default function HomePage() {
     const [isJoined, setIsJoined] = useState(false);
+    const [inputValue, setInputValue] = useState("0");
     const { isConnected, isConnecting, address } = useAccount();
     const { connect, connectors } = useConnect();
     const { disconnect } = useDisconnect();
@@ -129,24 +130,37 @@ export default function HomePage() {
                                             <span className="text-sm text-gray-600">Balance: 3223.32</span>
                                         </div>
                                         <div className="flex space-x-2">
-                                            <button className="bg-black text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-800">
+                                            <button className="bg-black text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-800 focus:outline-none">
                                                 Stake
                                             </button>
-                                            <button className="bg-gray-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300">
+                                            <button className="bg-gray-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300 focus:outline-none">
                                                 Unstake
                                             </button>
                                             <button
                                                 onClick={handleDisconnect}
-                                                className="bg-red-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300"
+                                                className="bg-red-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300 focus:outline-none"
                                             >
                                                 X
                                             </button>
                                         </div>
                                     </div>
                                     <div className="text-center mb-6">
-                                        <h2 className="text-4xl font-bold text-black">0</h2>
+                                        <input
+                                            type="number"
+                                            value={inputValue}
+                                            onChange={(e) => setInputValue(e.target.value)}
+                                            className="text-4xl font-bold text-black text-center w-full bg-transparent outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                            placeholder="0"
+                                        />
                                         <p className="text-gray-600">~$0</p>
-                                        <button className="mt-2 text-gray-600 underline hover:text-black">Max</button>
+                                        <button
+                                            className="mt-2 text-black bg-white border border-gray-300 rounded-full px-4 py-1 underline hover:text-black text-sm focus:outline-none"
+                                            onClick={() => {
+                                                setInputValue("3223.32"); // Set to max balance
+                                            }}
+                                        >
+                                            Max
+                                        </button>
                                     </div>
                                     <div className="border-t border-gray-300 pt-4 mb-6">
                                         <div className="flex justify-between items-center mb-2">
