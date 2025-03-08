@@ -43,11 +43,11 @@ export default function HomePage() {
             <header className="flex justify-between items-center p-4 w-4/5 mx-auto">
                 <div className="flex items-center space-x-4">
                     <img
-                        src="/assets/thorn-icon.png" // Thay bằng đường dẫn thực tế của bạn
+                        src="/assets/tulip.png" // Thay bằng đường dẫn thực tế của bạn
                         alt="USDC Icon"
                         className="h-10 w-10"
                     />
-                    <div className="text-2xl font-bold">Thorn</div>
+                    <div className="text-2xl font-bold">Tulip Agent</div>
                 </div>
 
                 <nav className="space-x-4">
