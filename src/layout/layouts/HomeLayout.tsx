@@ -61,35 +61,45 @@ export default function HomeLayout() {
 
             {/* Main Content */}
             <main className="relative flex items-center justify-center">
-                <div className="text-center">
-                    {/* Animate Tulip Agent and subheadline */}
-                    <motion.div
-                        animate={{
-                            y: isJoined ? -150 : 0, // Di chuyển lên trên 150px khi nhấn Join
-                            scale: isJoined ? 0.8 : 1, // Thu nhỏ nhẹ khi di chuyển
-                        }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
-                    >
-                        <h1 className="text-6xl md:text-7xl font-black text-black mb-4">Tulip Agent</h1>
-                        <p className="text-xl md:text-2xl text-black mb-8  font-ibm-plex-mono">TVL: 32.323 $</p>
-                    </motion.div>
+                <div className="relative text-center w-full max-w-md">
+                    <AnimatePresence>
+                        {/* Animate Tulip Agent and subheadline */}
+                        <motion.div
+                            key="tulip-agent"
+                            initial={{ y: 0, scale: 1 }}
+                            animate={{ y: isJoined ? -250 : 0, scale: isJoined ? 0.8 : 1 }}
+                            exit={{ y: 0, scale: 1 }}
+                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            className=" left-1/2 transform -translate-x-1/2"
+                            style={{ left: "50%", transform: "translateX(-50%)" }}
+                        >
+                            <h1 className="text-6xl md:text-7xl font-black text-black mb-4">Tulip Agent</h1>
+                            <p className="text-xl md:text-2xl text-black mb-8  font-ibm-plex-mono">TVL: 32.323 $</p>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Nút Join cố định vị trí dưới Tulip Agent */}
+                    <AnimatePresence>
+                        {!isJoined && (
+                            <motion.button
+                                initial={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={handleJoinClick}
+                                className={` left-1/2 transform -translate-x-1/2 top-[150px] py-3 px-6 rounded-md text-lg font-semibold transition-colors duration-300 ${
+                                    isConnecting
+                                        ? "bg-white text-black border border-gray-300 rounded-lg"
+                                        : "bg-black text-white hover:bg-gray-800"
+                                }`}
+                                disabled={isConnecting}
+                            >
+                                {isConnecting ? "Connecting to MetaMask..." : "Join"}
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
 
                     {/* Nút Join */}
-                    {!isJoined && (
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={handleJoinClick}
-                            className={`py-3 px-6 rounded-md text-lg font-semibold transition-colors duration-300 ${
-                                isConnecting
-                                    ? "bg-white text-black border border-gray-300 rounded-lg"
-                                    : "bg-black text-white hover:bg-gray-800"
-                            }`}
-                            disabled={isConnecting}
-                        >
-                            {isConnecting ? "Connecting to MetaMask..." : "Join"}
-                        </motion.button>
-                    )}
 
                     {/* Dashboard hiển thị sau khi nhấn Join */}
                     <AnimatePresence>
@@ -99,14 +109,13 @@ export default function HomeLayout() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 50 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}
-                                className="mt-8 p-6 bg-white border border-gray-300 rounded-lg shadow-lg w-full max-w-md"
+                                className="absolute left-1/2 transform -translate-x-1/2 mt-8 p-6 bg-white border border-gray-300 rounded-lg shadow-lg w-full max-w-md"
                             >
-                                {/* Dashboard Header */}
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="flex flex-col items-start space-y-1">
                                         <div className="flex items-center space-x-1">
                                             <img
-                                                src="https://github.com/trustwallet/assets/blob/master/blockchains/binance/assets/USDC-CD2/logo.png?raw=true" // Thay bằng đường dẫn thực tế của bạn
+                                                src="https://github.com/trustwallet/assets/blob/master/blockchains/binance/assets/USDC-CD2/logo.png?raw=true"
                                                 alt="USDC Icon"
                                                 className="h-5 w-5"
                                             />
@@ -129,15 +138,11 @@ export default function HomeLayout() {
                                         </button>
                                     </div>
                                 </div>
-
-                                {/* Số dư chính */}
                                 <div className="text-center mb-6">
                                     <h2 className="text-4xl font-bold text-black">0</h2>
                                     <p className="text-gray-600">~$0</p>
                                     <button className="mt-2 text-gray-600 underline hover:text-black">Max</button>
                                 </div>
-
-                                {/* Staked Positions */}
                                 <div className="border-t border-gray-300 pt-4 mb-6">
                                     <div className="flex justify-between items-center mb-2">
                                         <h3 className="text-lg font-semibold text-black">Staked Positions</h3>
@@ -163,11 +168,6 @@ export default function HomeLayout() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Nút Claim All */}
-                                {/* <button className="w-full bg-black text-white py-3 rounded-md font-semibold hover:bg-gray-800">
-                                    Claim All
-                                </button> */}
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -194,28 +194,19 @@ export default function HomeLayout() {
                         />
                         <div className="text-black">Oasis</div>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    {/* <div className="flex items-center space-x-2">
                         <img
                             src="/assets/orai-icon.png" // Thay bằng đường dẫn thực tế của bạn
                             alt="USDC Icon"
                             className="h-8 w-8"
                         />
                         <div className="text-black">Oraichain</div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex justify-center space-x-4 mb-4">
                     <span></span>
                     <span></span>
                 </div>
-                {/* <div className="text-gray-600">
-                    <a href="#" className="hover:text-black">
-                        Terms
-                    </a>{" "}
-                    |{" "}
-                    <a href="#" className="hover:text-black">
-                        Privacy
-                    </a>
-                </div> */}
             </footer>
         </div>
     );
