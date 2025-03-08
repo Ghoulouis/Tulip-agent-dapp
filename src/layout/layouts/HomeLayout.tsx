@@ -99,75 +99,81 @@ export default function HomeLayout() {
                         )}
                     </AnimatePresence>
 
-                    {/* Nút Join */}
-
                     {/* Dashboard hiển thị sau khi nhấn Join */}
                     <AnimatePresence>
                         {isJoined && (
                             <motion.div
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 50 }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
-                                className="absolute left-1/2 transform -translate-x-1/2 mt-8 p-6 bg-white border border-gray-300 rounded-lg shadow-lg w-full max-w-md"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3, delay: 0.3 }}
+                                className="fixed inset-0 flex items-center justify-center"
                             >
-                                <div className="flex justify-between items-center mb-6">
-                                    <div className="flex flex-col items-start space-y-1">
-                                        <div className="flex items-center space-x-1">
-                                            <img
-                                                src="https://github.com/trustwallet/assets/blob/master/blockchains/binance/assets/USDC-CD2/logo.png?raw=true"
-                                                alt="USDC Icon"
-                                                className="h-5 w-5"
-                                            />
-                                            <span className="text-xl font-bold text-black">USDC</span>
+                                <motion.div
+                                    initial={{ scale: 0.9, y: 50 }}
+                                    animate={{ scale: 1, y: 0 }}
+                                    exit={{ scale: 1, y: 50 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="p-6 bg-white border border-gray-300 rounded-lg "
+                                >
+                                    <div className="flex justify-between items-center mb-6  space-x-20">
+                                        <div className="flex flex-col items-start space-y-1">
+                                            <div className="flex items-center space-x-1">
+                                                <img
+                                                    src="https://github.com/trustwallet/assets/blob/master/blockchains/binance/assets/USDC-CD2/logo.png?raw=true"
+                                                    alt="USDC Icon"
+                                                    className="h-5 w-5"
+                                                />
+                                                <span className="text-xl font-bold text-black">USDC</span>
+                                            </div>
+                                            <span className="text-sm text-gray-600">Balance: 3223.32</span>
                                         </div>
-                                        <span className="text-sm text-gray-600">Balance: 3223.32</span>
-                                    </div>
-                                    <div className="flex space-x-2">
-                                        <button className="bg-black text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-800">
-                                            Stake
-                                        </button>
-                                        <button className="bg-gray-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300">
-                                            Unstake
-                                        </button>
-                                        <button
-                                            onClick={handleDisconnect}
-                                            className="bg-red-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300"
-                                        >
-                                            X
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="text-center mb-6">
-                                    <h2 className="text-4xl font-bold text-black">0</h2>
-                                    <p className="text-gray-600">~$0</p>
-                                    <button className="mt-2 text-gray-600 underline hover:text-black">Max</button>
-                                </div>
-                                <div className="border-t border-gray-300 pt-4 mb-6">
-                                    <div className="flex justify-between items-center mb-2">
-                                        <h3 className="text-lg font-semibold text-black">Staked Positions</h3>
-                                        <div className="flex items-center space-x-2">
-                                            <span className="text-gray-600">Auto compound</span>
-                                            <span role="img" aria-label="fire">
-                                                🔥
-                                            </span>
+                                        <div className="flex space-x-2">
+                                            <button className="bg-black text-white py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-800">
+                                                Stake
+                                            </button>
+                                            <button className="bg-gray-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300">
+                                                Unstake
+                                            </button>
+                                            <button
+                                                onClick={handleDisconnect}
+                                                className="bg-red-200 text-black py-2 px-4 rounded-md text-sm font-semibold hover:bg-gray-300"
+                                            >
+                                                X
+                                            </button>
                                         </div>
                                     </div>
-                                    <div className="space-y-2">
-                                        <div className="flex justify-between text-gray-600">
-                                            <span>Your deposit</span>
-                                            <span>0</span>
+                                    <div className="text-center mb-6">
+                                        <h2 className="text-4xl font-bold text-black">0</h2>
+                                        <p className="text-gray-600">~$0</p>
+                                        <button className="mt-2 text-gray-600 underline hover:text-black">Max</button>
+                                    </div>
+                                    <div className="border-t border-gray-300 pt-4 mb-6">
+                                        <div className="flex justify-between items-center mb-2">
+                                            <h3 className="text-lg font-semibold text-black">Staked Positions</h3>
+                                            <div className="flex items-center space-x-2">
+                                                <span className="text-gray-600">Auto compound</span>
+                                                <span role="img" aria-label="fire">
+                                                    🔥
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div className="flex justify-between text-gray-600">
-                                            <span>Profit</span>
-                                            <span>20%</span>
-                                        </div>
-                                        <div className="flex justify-between text-gray-600">
-                                            <span>% Shared</span>
-                                            <span>0</span>
+                                        <div className="space-y-2">
+                                            <div className="flex justify-between text-gray-600">
+                                                <span>Your deposit</span>
+                                                <span>0</span>
+                                            </div>
+                                            <div className="flex justify-between text-gray-600">
+                                                <span>Profit</span>
+                                                <span>20%</span>
+                                            </div>
+                                            <div className="flex justify-between text-gray-600">
+                                                <span>% Shared</span>
+                                                <span>0</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             </motion.div>
                         )}
                     </AnimatePresence>
